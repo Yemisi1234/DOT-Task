@@ -26,6 +26,7 @@ export class ArticleComponent implements OnInit {
     const newItem = {
       author: this.author,
       title: this.title,
+      urlToImage: this.urlToImage,
     };
 
     if (!this.bookmarks) {
@@ -36,8 +37,7 @@ export class ArticleComponent implements OnInit {
     this.filteredItems = [...this.bookmarks.articles];
     this.author = '';
     this.title = '';
-    // this.site_url = '';
-    // this.site_category = '';
+    this.urlToImage = '';
   }
 
   filterItems(searchTerm: string) {
@@ -45,12 +45,17 @@ export class ArticleComponent implements OnInit {
       this.filteredItems = this.bookmarks.articles.slice();
     } else {
       this.filteredItems = this.bookmarks.articles.filter(
-        (item: { title: any; author: string }) => {
+        (item: { urlToImage: any; title: any; author: string }) => {
           return (
             (item.author?.toLowerCase() ?? '').includes(
               searchTerm.toLowerCase()
             ) ||
-            (item.title?.toLowerCase() ?? '').includes(searchTerm.toLowerCase())
+            (item.title?.toLowerCase() ?? '').includes(
+              searchTerm.toLowerCase()
+            ) ||
+            (item.urlToImage?.toLowerCase() ?? '').includes(
+              searchTerm.toLowerCase()
+            )
           );
         }
       );
